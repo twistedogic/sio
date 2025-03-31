@@ -2,7 +2,6 @@ package sio
 
 import (
 	"context"
-	"log"
 	"os"
 
 	"github.com/charmbracelet/huh"
@@ -28,7 +27,7 @@ func prompt() (string, error) {
 	var prompt string
 	form := huh.NewForm(
 		huh.NewGroup(
-			huh.NewText().Title("Enter prompt").Editor("vim").Value(&prompt),
+			huh.NewText().Title("Enter prompt").ShowLineNumbers(true).Editor("vim").Value(&prompt),
 		),
 	)
 	err := form.WithWidth(width).Run()
@@ -38,13 +37,13 @@ func prompt() (string, error) {
 func response(ctx context.Context, prompt string, src Source) error {
 	var res string
 	var err error
-	log.Printf("You: %s\n", prompt)
+	PrintMessage("You", prompt)
 	spinner.New().Title("processing...").
 		Action(func() {
 			res, err = src.Response(ctx, prompt)
 		}).Run()
 	if err == nil {
-		log.Printf("%s: %s\n", src.Name(), res)
+		PrintMessage(src.Name(), res)
 	}
 	return err
 }
