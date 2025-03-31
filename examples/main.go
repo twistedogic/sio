@@ -25,7 +25,7 @@ func (d defaultSource) Response(ctx context.Context, input string) (string, erro
 }
 
 func main() {
-	if err := sio.Start(context.Background(), "system", defaultSource{}); err != nil {
+	if err := sio.Start(context.Background(), defaultSource{}); err != nil {
 		log.Fatal(err)
 	}
 }

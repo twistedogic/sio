@@ -37,7 +37,6 @@ func prompt() (string, error) {
 func response(ctx context.Context, prompt string, src Source) error {
 	var res string
 	var err error
-	PrintMessage("You", prompt)
 	spinner.New().Title("processing...").
 		Action(func() {
 			res, err = src.Response(ctx, prompt)
@@ -48,7 +47,7 @@ func response(ctx context.Context, prompt string, src Source) error {
 	return err
 }
 
-func Start(ctx context.Context, name string, src Source) error {
+func Start(ctx context.Context, src Source) error {
 	for {
 		p, err := prompt()
 		if err != nil {
@@ -57,6 +56,7 @@ func Start(ctx context.Context, name string, src Source) error {
 			}
 			return err
 		}
+		PrintMessage("You", p)
 		if err := response(ctx, p, src); err != nil {
 			return err
 		}
