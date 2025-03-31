@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/twistedogic/sio/wrap"
+	"github.com/twistedogic/sio"
 )
 
 type defaultSource struct{}
@@ -25,7 +25,7 @@ func (d defaultSource) Response(ctx context.Context, input string) (string, erro
 }
 
 func main() {
-	if err := wrap.Start(context.Background(), "system", defaultSource{}); err != nil {
+	if err := sio.Start(context.Background(), "system", defaultSource{}); err != nil {
 		log.Fatal(err)
 	}
 }
